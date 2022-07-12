@@ -34,6 +34,7 @@ while True:
                         data.extend([lm[0], height-lm[1], lm[2]])
                 print(data)
                 sock.sendto(str.encode(str(data)), serverAddressPort)
+        img = cv2.resize(img, (0, 0), None, 0.5, 0.5)
         cv2.imshow("Image", img)
         cv2.waitKey(1)
 
