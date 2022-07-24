@@ -5,7 +5,7 @@ import socket
 #Parameters
 width, height = 1280, 720
 #Webcam
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 cap.set(3, width)
 cap.set(4, height)
 
