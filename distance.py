@@ -38,6 +38,9 @@ def main():
     # y = Ax^2 + Bx + C
     initialTime = time.time()
     listPos.append(initialDistance)
+    listJerk.append(0)
+    listSpeed.append(0)
+    listAcc.append(0)
     #loop
     while True:
         success, img = cap.read()
@@ -52,17 +55,14 @@ def main():
             listPos.append(distanceM)
 
             if(listPos.__len__() >= 2 ):
-                speed = abs((listPos[-1] - listPos[-2]) / (1/30))  # abs((distanceM - initialDistance)/(2*(1/60)*(time.time() - initialTime)))
+                speed = abs((listPos[-1] - listPos[-2]) / (1/30))  # (px/frame)
                 listSpeed.append(speed)
-                if(listSpeed.__len__() >= 2):
-                    acc = ((listSpeed[-1] - listSpeed[-2]) / (1/30))/100
-                    listAcc.append(acc)
-                    #acc = ((listSpeed[-1] - listSpeed[-2]) / (1/60))/100
-                    print("speed(tf):",listSpeed[-1],"speed(ti):",listSpeed[-2],"acc:",acc)
-                    cvzone.putTextRect(img, f'{round(listSpeed[-1], 2)} p/f', (x + 5, y - 10))
-                    if(listAcc.__len__() >= 2 ):
-                        jerk = ((listAcc[-1] - listAcc[-2]) / (2/30))
-                        print(jerk)
+                acc = ((listSpeed[-1] - listSpeed[-2]) / (1/30))/100 # (px/frame^2)
+                listAcc.append(acc)
+                jerk = (((listAcc[-1] - listAcc[-2]) / (1 / 30))*(1/30))/100 #(px/frame^3)
+                listJerk.append(jerk)
+                print("speed(tf):",listSpeed[-1],"speed(ti):",listSpeed[-2],"acc:",acc, "jerk:",jerk)
+                cvzone.putTextRect(img, f'{round(listSpeed[-1], 2)} p/f', (x + 5, y - 10))
 
         cv2.imshow("image",img)
         cv2.waitKey(1)
