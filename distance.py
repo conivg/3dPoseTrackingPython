@@ -18,10 +18,6 @@ class distanceExample:
         # distanceM = distanceCM / 100
         distanceExample.x1, distanceExample.y1, distanceExample.z1 = x2, y2, z2
         return distance
-    def calculatedir(self, x2,y2,z2):
-
-
-
 def main():
     # Webcam
     cap = cv2.VideoCapture(0)
