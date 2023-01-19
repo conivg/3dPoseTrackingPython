@@ -58,7 +58,7 @@ def main():
                 listSpeed.append(speed)
                 acc = ((listSpeed[-1] - listSpeed[-2]) / (1/30))/100 # (px/frame^2)
                 listAcc.append(acc)
-                jerk = ((listAcc[-1] - listAcc[-2]) / (2 / 30)) / 100 #(px/frame^3)
+                jerk = ((listAcc[-1] - listAcc[-2]) / (1 / 30)) / 1000 #(px/frame^3)
                 listJerk.append(jerk)
                 print("speed(tf):",listSpeed[-1],"speed(ti):",listSpeed[-2],"acc:",acc, "jerk:",jerk)
                 cvzone.putTextRect(img, f'{round(listSpeed[-1], 2)} p/f', (x + 5, y - 10))
