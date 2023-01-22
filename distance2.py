@@ -44,6 +44,8 @@ while True:
     hands, img = detector.findHands(img)
 
     if hands:
+        actualtime = time.time()
+        timer = actualtime - start_time
 
         lmList = hands[0]['lmList']
         x, y, w, h = hands[0]['bbox']
@@ -55,34 +57,48 @@ while True:
         listPosZ.append(z2)
 
         #displacement
+
+        #Get displacement in each plane
         difX = listPosX[-1]-listPosX[-2]
         difY = listPosY[-1]-listPosY[-2]
         difZ = listPosZ[-1]-listPosZ[-2]
+        #Calculate total displacement
         dif = math.sqrt((difX)**2 + (difY)**2 + (difZ)**2)
+        #Calculate coefficients to transform px to cm
         A,B,C = coff
+        #Calculate real distance (cm)
         distanceCM = A*dif**2 + B*dif + C
         listDespCM.append(distanceCM)
+        #Calculate difference in displacement
         desp = listDespCM[-1] - listDespCM[-2]
-        actualtime = time.time()
-        timer = actualtime-start_time
-        print("time:", timer)
-        #Velocity
-        #velX = (difX) / (1/30)
-        #velY = (difY) / (1/30)
-        #velZ = (difZ) / (1/30)
+
+        #Calculate velocity in time (sec)
         vel = abs(desp/timer)
+
+        # Velocity
+        # velX = (difX) / (1/30)
+        # velY = (difY) / (1/30)
+        # velZ = (difZ) / (1/30)
         #listvx.append(velX)
         #listvy.append(velY)
         #listvz.append(velZ)
         listVel.append(vel)
-        #Acceleration
-        acc = round(((listVel[-1] - listVel[-2]) / timer)/100, 3)
+
+        #Calculate acceleration from difference in velocity
+        acc = round(((listVel[-1] - listVel[-2]) / timer)/1000, 3)
         listAcc.append(acc)
 
-        jerk = round(((listAcc[-1] - listAcc[-2]) / timer)/10000, 2)  # (px/frame^3)
-        #listJerk.append(jerk)
+        # Calculate jerkiness from difference in acceleration
+        jerk = round(((listAcc[-1] - listAcc[-2]) / timer)/10000, 2)
+
+        #Calculate contraction index:
+        # ratio between 2 joints that surround another (middle) joint
         ci = (math.sqrt(x2 ** 2 + y2 ** 2 + z2 ** 2)) / (math.sqrt(xP ** 2 + yP ** 2 + zP ** 2))
+
+        #Calculate the weight of the movement (Kinetic Energy)
         weight = vel ** 2
+
+
         print("speed(tf):", round(listVel[-1], 3), "speed(ti):", round(listVel[-2],3),"acc:", acc, "jerk:", jerk, "weight: ", weight)
 
         cvzone.putTextRect(img, "speed:" f'{int(vel)} cm/s', (x + 400, y - 50))
