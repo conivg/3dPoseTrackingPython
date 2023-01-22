@@ -29,6 +29,9 @@ def main():
     # changeInDistance = 0
 
     listPos = []
+    listPosX = []
+    listPosY = []
+    listPosZ = []
     listSpeed = []
     listAcc = []
     listJerk = []
@@ -36,16 +39,25 @@ def main():
     detector = HandDetector(detectionCon=0.8, maxHands=1)
     acc = 0
     # Find Function
-    x = [300, 245, 200, 170, 145, 130, 112, 103, 93, 87, 80, 75, 70, 67, 62, 59, 57]
-    y = [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]
-    coff = np.polyfit(x, y, 2)
+    #x = [300, 245, 200, 170, 145, 130, 112, 103, 93, 87, 80, 75, 70, 67, 62, 59, 57]
+    #y = [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]
+    #coff = np.polyfit(x, y, 2)
     # y = Ax^2 + Bx + C
-    initialTime = time.time()
+    #initialTime = time.time()
     listPos.append(initialDistance)
     listJerk.append(0)
     listSpeed.append(0)
     listAcc.append(0)
-
+    listPosX.append(0)
+    listPosY.append(0)
+    listPosZ.append(0)
+    velocidadSegundo = 0
+    accSegundo = 0
+    jerkSegundo = 0
+    ciSegundo = 0
+    weightSegundo = 0
+    start_time = time.time()
+    seconds = time.time()-start_time
     # loop
     while True:
         success, img = cap.read()
@@ -56,25 +68,37 @@ def main():
             x, y, w, h = hands[0]['bbox']
             x2, y2, z2 = lmList[8]
             xP, yP, zP = lmList[5]
-            # xP, yP, zP = lmList[5]
-            traj = distanceExample.calculatedis(self=img, x2=x2, y2=y2, z2=z2)
-            listPos.append(traj)
+            listPosX.append(x2)
+            listPosY.append(y2)
+            listPosZ.append(z2)
+            velX = (listPosX[-1] - listPosX[-2])/(1/30)
+            velY = (listPosY[-1] - listPosY[-2])/(1/30)
+            velZ = (listPosZ[-1] - listPosZ[-2]) / (1/30)
+            vel2 = abs(math.sqrt(velX**2 + velY**2 + velZ**2))
+            listSpeed.append(vel2)
+            acc = ((listSpeed[-1] - listSpeed[-2]) /(1/30))# (px/frame^2)
+            listAcc.append(acc)
+            jerk = ((listAcc[-1] - listAcc[-2]) / (1/30))# (px/frame^3)
+            listJerk.append(jerk)
+            ci = (math.sqrt(x2 ** 2 + y2 ** 2 + z2 ** 2)) / (math.sqrt(xP ** 2 + yP ** 2 + zP ** 2))
+            weight = vel2**2
+            print("speed(tf):",listSpeed[-1],"speed(ti):",listSpeed[-2],"acc:",acc, "jerk:",jerk,"weight: ", weight)
+            print("weight:", weight)
+            print("seconds", seconds, "actual: ",int(time.time()-start_time))
 
-            if (listPos.__len__() >= 2):
-                speed = abs((listPos[-1] - listPos[-2]) / (1 / 30))  # (px/frame)
-                listSpeed.append(speed)
-                acc = ((listSpeed[-1] - listSpeed[-2]) / (1 / 30)) / 100  # (px/frame^2)
-                listAcc.append(acc)
-                jerk = ((listAcc[-1] - listAcc[-2]) / (1 / 30)) / 10000  # (px/frame^3)
-                listJerk.append(jerk)
-                ci = (math.sqrt(x2 ** 2 + y2 ** 2 + z2 ** 2)) / (math.sqrt(xP ** 2 + yP ** 2 + zP ** 2))
-                weight = speed**2
-                # print("time: ",datetime.datetime.now(),"speed(tf):",listSpeed[-1],"speed(ti):",listSpeed[-2],"acc:",acc, "jerk:",jerk)
-                print("weight:", weight)
-                cvzone.putTextRect(img, "speed:" f'{round(listSpeed[-1], 2)} p/f', (x + 400, y - 50))
-                cvzone.putTextRect(img, "acc:" f'{round(acc, 2)} p/f^2', (x + 400, y))
-                cvzone.putTextRect(img, "jerk:" f'{round(jerk, 3)} p/f^3', (x + 400, y + 50))
-                cvzone.putTextRect(img, "CI:" f'{round(ci, 3)}', (x + 400, y + 100))
+            if int(time.time()-start_time) == seconds + 1:
+                velocidadSegundo = listSpeed[-1]
+                accSegundo = acc
+                jerkSegundo = jerk
+                ciSegundo = ci
+                weightSegundo = weight
+                seconds = seconds+1
+                #timer = time.time() + 1
+            cvzone.putTextRect(img, "speed:" f'{int(listSpeed[-1])} p/f', (x + 400, y - 50))
+            cvzone.putTextRect(img, "acc:" f'{int(acc)} p/f^2', (x + 400, y))
+            cvzone.putTextRect(img, "jerk:" f'{round(jerk, 2)} p/f^3', (x + 400, y + 50))
+            cvzone.putTextRect(img, "CI:" f'{round(ci, 2)}', (x + 400, y + 100))
+            cvzone.putTextRect(img, "weight:" f'{int(weight)}', (x + 400, y + 150))
 
         cv2.imshow("image", img)
         cv2.waitKey(1)
