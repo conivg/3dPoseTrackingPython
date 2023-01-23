@@ -4,9 +4,10 @@ import math
 import time
 from cvzone.HandTrackingModule import HandDetector
 import numpy as np
+from scipy.signal import lfilter
 cap = cv2.VideoCapture(0)
-cap.set(3, 1280)
-cap.set(4, 720)
+cap.set(3, 640)#640,1280
+cap.set(4, 480)#480,720
 detector = HandDetector(detectionCon=0.8, maxHands=1)
 ##p1=[0,0,0]
 x1 = 0
@@ -38,7 +39,14 @@ listvy.append(0)
 listvz.append(0)
 listAcc.append(0)
 listJerk.append(0)
+velprint =0
+accprint = 0
+printjerk = 0
+running_time = time.time()
 start_time = time.time()
+velFilter = []
+velFilter.append(0)
+accFilter = []
 while True:
     success, img = cap.read()
     hands, img = detector.findHands(img)
@@ -72,8 +80,17 @@ while True:
         #Calculate difference in displacement
         desp = listDespCM[-1] - listDespCM[-2]
 
+
         #Calculate velocity in time (sec)
         vel = abs(desp/timer)
+        listVel.append(vel)
+        n = 33
+        b = [1.0 / n] * n
+        a = 1
+        velFilter = lfilter(b, a, listVel)
+
+        print("value:", listVel[-1])
+        print("filtervalue", velFilter[-1])
 
         # Velocity
         # velX = (difX) / (1/30)
@@ -82,14 +99,14 @@ while True:
         #listvx.append(velX)
         #listvy.append(velY)
         #listvz.append(velZ)
-        listVel.append(vel)
 
         #Calculate acceleration from difference in velocity
-        acc = round(((listVel[-1] - listVel[-2]) / timer)/1000, 3)
+        acc = round(((velFilter[-1] - velFilter[-2]) / timer)/1000, 3)
         listAcc.append(acc)
+        accFilter = lfilter(b, a, listAcc)
 
         # Calculate jerkiness from difference in acceleration
-        jerk = round(((listAcc[-1] - listAcc[-2]) / timer)/10000, 2)
+        jerk = round(((accFilter[-1] - accFilter[-2]) / timer)/1000, 2)
 
         #Calculate contraction index:
         # ratio between 2 joints that surround another (middle) joint
@@ -101,11 +118,19 @@ while True:
 
         print("speed(tf):", round(listVel[-1], 3), "speed(ti):", round(listVel[-2],3),"acc:", acc, "jerk:", jerk, "weight: ", weight)
 
-        cvzone.putTextRect(img, "speed:" f'{int(vel)} cm/s', (x + 400, y - 50))
-        cvzone.putTextRect(img, "acc:" f'{int(acc)} cm/s^2', (x + 400, y))
-        cvzone.putTextRect(img, "jerk:" f'{round(jerk, 2)} cm/s^3', (x + 400, y + 50))
-        cvzone.putTextRect(img, "CI:" f'{round(ci, 2)}', (x + 400, y + 100))
-        cvzone.putTextRect(img, "weight:" f'{round(weight,2)}', (x + 400, y + 150))
+
+        if time.time() - running_time >= 0.05:
+            velprint = velFilter[-1] #vel
+            accprint = accFilter[-1]
+            printjerk = jerk
+            weightprint = weight
+            running_time = time.time()
+
+        cvzone.putTextRect(img, "speed:" f'{round(velprint,2)} cm/s', (x + 150, y - 50)) #100,400
+        cvzone.putTextRect(img, "acc:" f'{round(accprint,2)} cm/s^2', (x + 150, y))
+        #cvzone.putTextRect(img, "jerk:" f'{round(abs(printjerk), 2)} cm/s^3', (x + 150, y + 50))
+        #cvzone.putTextRect(img, "CI:" f'{round(ci, 2)}', (x + 150, y + 100))
+        cvzone.putTextRect(img, "weight:" f'{round(weightprint/1000,2)}', (x + 150, y + 150))
         start_time = actualtime
         #A,B,C =coff
         #difCM = A*dif**2 + B*dif + C
