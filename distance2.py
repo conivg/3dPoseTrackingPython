@@ -5,16 +5,30 @@ import time
 from cvzone.HandTrackingModule import HandDetector
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.signal import lfilter, savgol_filter
+from scipy.signal import lfilter, savgol_filter, filtfilt,butter
 import atexit
 
+def butter_lowpass(cutoff, fs, order=5):
+    nyq = 0.5 * fs
+    normal_cutoff = cutoff / nyq
+    b, a = butter(order, normal_cutoff, btype='lowpass', analog=False)
+    return b, a
+
+def lowpass_filter(data, cutoff, fs, order=5, plots=True):
+    ''' fs : sampling freq. (pts/s) '''
+    cutoff = float(cutoff)
+    fs = float(fs)
+    t = np.arange(0, len(data)/fs, 1/fs)
+    b, a = butter_lowpass(cutoff, fs, order=order)
+    y = filtfilt(b, a, data,padlen=len(data)-1)
+    return y
 
 
 
 def main():
     cap = cv2.VideoCapture(0)
-    cap.set(3, 640)  # 640,1280
-    cap.set(4, 480)  # 480,720
+    cap.set(3, 1280)  # 640,1280
+    cap.set(4, 720)  # 480,720
     detector = HandDetector(detectionCon=0.8, maxHands=1)
     ##p1=[0,0,0]
     x1 = 0
@@ -91,12 +105,13 @@ def main():
             #Calculate velocity in time (sec)
             vel = abs(desp/timer)
             listVel.append(vel)
-            n = 15
-            b = [0.1/ n] * n
-            a = 1
-            velFilter = lfilter(b, a, listVel)
+            #n = 15
+            #b = [0.1/ n] * n
+            #a = 1
+            velFilter = lowpass_filter(listVel, 0.1, 1, order=2) #filtfilt(b, a, listVel) #lfilter(b, a, listVel)
+            velFilter[:] = [x / 10 for x in velFilter]
 
-            print("value:", listVel[-1])
+            print("value:", listVel[-1]/10)
             print("filtervalue", velFilter[-1])
 
             # Velocity
@@ -108,14 +123,17 @@ def main():
             #listvz.append(velZ)
 
             #Calculate acceleration from difference in velocity
-            acc = round(((velFilter[-1] - velFilter[-2]) / timer), 3)
+            acc = round(((velFilter[-1] - velFilter[-2]) / timer), 2)
             listAcc.append(acc)
-            accFilter = lfilter(b, a, listAcc) #savgol_filter(listAcc, 5, 2, mode='nearest')#
+            listAcc[:] = [x / 10 for x in listAcc]
+            #accFilter = lowpass_filter(listAcc, 0.1, 1, order=2)
+            print("speed(tf):", round(velFilter[-1], 3), "speed(ti):", round(velFilter[-2], 3), "acc:", listAcc[-1])
+            #accFilter = lowpass_filter(listAcc, 0.1, 1, order=4) #lfilter(b, a, listAcc) #savgol_filter(listAcc, 5, 2, mode='nearest')#
 
             # Calculate jerkiness from difference in acceleration
-            jerk = ((accFilter[-1] - accFilter[-2]) / timer)
+            jerk = ((listAcc[-1] - listAcc[-2]) / timer)
             listJerk.append(jerk)
-            jerkFilter = lfilter(b,a,listJerk)
+            #jerkFilter = lowpass_filter(listJerk, 0.1, 1, order=4)#lfilter(b,a,listJerk)
             #Calculate contraction index:
             # ratio between 2 joints that surround another (middle) joint
             ci = (math.sqrt(x2 ** 2 + y2 ** 2 + z2 ** 2)) / (math.sqrt(xP ** 2 + yP ** 2 + zP ** 2))
@@ -129,13 +147,13 @@ def main():
 
             if time.time() - running_time >= 0.05:
                 velprint = velFilter[-1] #vel
-                accprint = accFilter[-1]
-                printjerk = jerkFilter[-1]
+                accprint = listAcc[-1]
+                printjerk = listJerk[-1]
                 weightprint = weight
                 running_time = time.time()
 
             cvzone.putTextRect(img, "speed:" f'{int(velprint)} cm/s', (x + 150, y - 50)) #100,400
-            cvzone.putTextRect(img, "acc:" f'{accprint} cm/s^2', (x + 150, y))
+            cvzone.putTextRect(img, "acc:" f'{round(accprint,1)} cm/s^2', (x + 150, y))
             cvzone.putTextRect(img, "jerk:" f'{round(abs(printjerk),2)} cm/s^3', (x + 150, y + 50))
             cvzone.putTextRect(img, "CI:" f'{round(ci, 2)}', (x + 150, y + 100))
             cvzone.putTextRect(img, "weight:" f'{round(weightprint/1000,2)}', (x + 150, y + 150))
