@@ -1,0 +1,27 @@
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+Back from Plie,32.76819380911204,1,0.18,0.9,1.07,hip right,knee right
+Back from Plie,32.76819380911204,1,0.18,0.9,1.07,hip right,knee right
+Back from Plie,0.0,0,80.07,0.9,0.0,hip right,knee right
+Back from Plie,0.0,0,80.07,0.9,0.0,hip right,knee right
+Back from Plie,0.0,0,0.0,0.9,0.0,hip right,knee right
+Back from Plie,0.0,0,0.0,0.9,0.0,hip right,knee right
+Back from Plie,0.0,0,0.0,0.9,0.0,hip right,knee right
+Back from Plie,0.0,0,0.0,0.9,0.0,hip right,knee right
+Etendre right,578.8189439177493,839,12155.33,1.06,335.03,foot right,ankle right
+Etendre right,578.8189439177493,839,12155.33,1.06,335.03,foot right,ankle right
+Etendre right,426.9939892601057,762,15395.35,1.05,182.32,foot right,ankle right
+Etendre right,426.9939892601057,762,15395.35,1.05,182.32,foot right,ankle right
+Etendre right,0.0,0,1317.67,1.05,0.0,foot right,ankle right
+Etendre right,0.0,0,1317.67,1.06,0.0,foot right,ankle right
+Etendre right,346.87909105661475,349,5948.31,1.07,120.33,foot right,ankle right
+Etendre right,346.87909105661475,349,5948.31,1.07,120.33,foot right,ankle right
+Etendre right,0.0,0,1050.98,1.07,0.0,foot right,ankle right
+Etendre right,0.0,0,1050.98,1.07,0.0,foot right,ankle right
+Etendre right,0.0,0,0.0,1.07,0.0,foot right,ankle right
+Etendre right,0.0,0,0.0,1.07,0.0,foot right,ankle right
+Etendre right,0.0,0,0.0,1.07,0.0,foot right,ankle right
+Etendre right,0.0,0,0.0,1.07,0.0,foot right,ankle right
+Etendre right,0.0,0,0.0,1.07,0.0,foot right,ankle right
+Etendre right,0.0,0,0.0,1.07,0.0,foot right,ankle right
+Etendre right,0.0,0,0.0,1.07,0.0,foot right,ankle right
+Etendre right,0.0,0,0.0,1.07,0.0,foot right,ankle right
