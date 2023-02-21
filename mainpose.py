@@ -23,9 +23,9 @@ posList = []
 
 class Classificator:
     def __init__(self):
-        self.x = [300, 245, 200, 170, 145, 130, 112, 103, 93, 87, 80, 75, 70, 67, 62, 59, 57]
+        self.x = [300, 245, 200, 170, 145, 130, 112, 103, 93, 87, 80, 75, 70, 67, 62, 59, 57,56,55,22]
         # Value at centimiters
-        self.y = [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]
+        self.y = [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100,105,110,150]
         self.coff = np.polyfit(self.x, self.y, 2)
         self.listPosXLower = []
         self.listPosYLower = []
