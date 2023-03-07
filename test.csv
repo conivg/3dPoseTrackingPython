@@ -1,0 +1,227 @@
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+2023-02-22 15:54:51.755413,Plie,0.002990129190410103,0.0,0.0,0.26296581289395293,8.940872575342577e-06,hip right,knee right
+2023-02-22 15:54:51.803416,Plie,0.002990129190410103,0.0,0.0,0.2634525365734918,8.940872575342577e-06,hip right,knee right
+2023-02-22 15:54:51.848421,Plie,0.002990129190410103,0.0,0.0,0.2657933925578282,8.940872575342577e-06,hip right,knee right
+2023-02-22 15:54:51.901424,Plie,0.27796135157521373,-7.3,375.443175674156,0.267530302025686,0.07726251296951957,hip right,knee right
+2023-02-22 15:54:51.966429,Plie,0.27796135157521373,-7.3,375.443175674156,0.27116812765625126,0.07726251296951957,hip right,knee right
+2023-02-22 15:54:52.029434,Plie,0.38455108203582544,3.66,88.40639249224249,0.2737610893944669,0.14787953469492415,hip right,knee right
+2023-02-22 15:54:52.083438,Plie,0.38455108203582544,3.66,88.40639249224249,0.27617796212439844,0.14787953469492415,hip right,knee right
+2023-02-22 15:54:52.138443,Plie,0.039730964949285505,-0.99,79.81289525014954,0.2771277504236858,0.0015785495758013533,hip right,knee right
+2023-02-22 15:54:52.186446,Plie,0.039730964949285505,-0.99,79.81289525014954,0.27918445206388887,0.0015785495758013533,hip right,knee right
+2023-02-22 15:54:52.234450,Plie,0.039730964949285505,-0.99,79.81289525014954,0.28106354765390423,0.0015785495758013533,hip right,knee right
+2023-02-22 15:54:52.277453,Plie,0.11135223221653535,-10.94,419.26762277540615,0.2821688705487101,0.012399319619605213,hip right,knee right
+2023-02-22 15:54:52.330457,Plie,0.11135223221653535,-10.94,419.26762277540615,0.28457684506897873,0.012399319619605213,hip right,knee right
+2023-02-22 15:54:52.399462,Plie,0.16625493421145063,-0.08,17.245064454494887,0.28562429858735566,0.027640703149653778,hip right,knee right
+2023-02-22 15:54:52.451466,Plie,0.16625493421145063,-0.08,17.245064454494887,0.28533091451892745,0.027640703149653778,hip right,knee right
+2023-02-22 15:54:52.505470,Plie,0.0,-6.97,205.354427442497,0.28533091451892745,0.0,hip right,knee right
+2023-02-22 15:54:52.566474,Plie,0.0,-6.97,205.354427442497,0.28533091451892745,0.0,hip right,knee right
+2023-02-22 15:54:52.614478,Plie,0.0,0.0,0.0,0.28533091451892745,0.0,hip right,knee right
+2023-02-22 15:54:52.667484,Plie,0.0,0.0,0.0,0.28487458781930053,0.0,hip right,knee right
+2023-02-22 15:54:52.729487,Plie,0.0,-5.83,206.11385232979322,0.28487458781930053,0.0,hip right,knee right
+2023-02-22 15:54:52.791492,Plie,0.0,-5.83,206.11385232979322,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:52.840495,Plie,0.0,-7.17,261.8225887939591,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:52.898500,Plie,0.0,-7.17,261.8225887939591,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:52.959504,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.012509,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.060513,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.106515,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.155520,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.199523,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.245526,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.295530,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.346534,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.400540,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.459543,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.503546,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.554550,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.600553,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.645557,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.701561,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.761566,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.822569,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.871573,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.938579,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:53.993583,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:54.039587,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:54.091591,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:54.138594,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:54.185598,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:54.234601,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:54.281605,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 15:54:54.328609,Back from Plie,0.0,0.0,0.0,0.27716825924479815,0.0,hip right,knee right
+2023-02-22 15:54:54.379613,Back from Plie,0.0,0.0,0.0,0.27716825924479815,0.0,hip right,knee right
+2023-02-22 15:54:54.440617,Back from Plie,0.7121847203910715,11.67,202.9353876938469,0.27620725696353554,0.5072070759585087,hip right,knee right
+2023-02-22 15:54:54.490621,Back from Plie,0.7121847203910715,11.67,202.9353876938469,0.27620725696353554,0.5072070759585087,hip right,knee right
+2023-02-22 15:54:54.552627,Back from Plie,1.4507204089072183,23.4,607.0520658602047,0.2751527439106104,2.1045897048199267,hip right,knee right
+2023-02-22 15:54:54.602630,Back from Plie,1.4507204089072183,23.4,607.0520658602047,0.2751527439106104,2.1045897048199267,hip right,knee right
+2023-02-22 15:54:54.671635,Back from Plie,0.7202841900218174,10.44,571.6956241427087,0.27332159872316325,0.5188093143953856,hip right,knee right
+2023-02-22 15:54:54.725639,Back from Plie,0.7202841900218174,10.44,571.6956241427087,0.2715766081188619,0.5188093143953856,hip right,knee right
+2023-02-22 15:54:54.774642,Back from Plie,0.0,-3.54,134.47860424836284,0.2715766081188619,0.0,hip right,knee right
+2023-02-22 15:54:54.837648,Back from Plie,0.0,-3.54,134.47860424836284,0.26971000396489203,0.0,hip right,knee right
+2023-02-22 15:54:54.900653,Back from Plie,0.06307003713370427,-20.76,674.8750509159574,0.26993456109031494,0.003977829584046835,hip right,knee right
+2023-02-22 15:54:54.965657,Back from Plie,0.06307003713370427,-20.76,674.8750509159574,0.26948019688121766,0.003977829584046835,hip right,knee right
+2023-02-22 15:54:55.026661,Back from Plie,0.4620422572693777,6.62,109.82771385692847,0.268859086885191,0.21348304750258182,hip right,knee right
+2023-02-22 15:54:55.096667,Back from Plie,0.4620422572693777,6.62,109.82771385692847,0.2720175731298312,0.21348304750258182,hip right,knee right
+2023-02-22 15:54:55.153671,Back from Plie,0.3638301438488098,3.04,121.39250463201128,0.27271985151637573,0.13237237357304563,hip right,knee right
+2023-02-22 15:54:55.216676,Back from Plie,0.3638301438488098,3.04,121.39250463201128,0.27158223243924556,0.13237237357304563,hip right,knee right
+2023-02-22 15:54:55.268682,Back from Plie,0.11081634099564407,-3.52,46.074662852281385,0.2699052502926974,0.012280261431662864,hip right,knee right
+2023-02-22 15:54:55.326684,Back from Plie,0.11081634099564407,-3.52,46.074662852281385,0.2699052502926974,0.012280261431662864,hip right,knee right
+2023-02-22 15:54:55.376688,Back from Plie,0.8804701502031577,17.26,375.2634242521982,0.2696694279217739,0.7752276853987711,hip right,knee right
+2023-02-22 15:54:55.441693,Back from Plie,0.8804701502031577,17.26,375.2634242521982,0.27096592098055494,0.7752276853987711,hip right,knee right
+2023-02-22 15:54:55.497697,Back from Plie,0.5196555873482486,-7.44,148.56005891893963,0.27165974626251654,0.2700419294622532,hip right,knee right
+2023-02-22 15:54:55.551702,Back from Plie,0.5196555873482486,-7.44,148.56005891893963,0.27165974626251654,0.2700419294622532,hip right,knee right
+2023-02-22 15:54:55.615706,Back from Plie,1.0468432938234287,16.36,405.9049230230539,0.2717858864303565,1.0958808818230854,hip right,knee right
+2023-02-22 15:54:55.676711,Back from Plie,1.0468432938234287,16.36,405.9049230230539,0.2717858864303565,1.0958808818230854,hip right,knee right
+2023-02-22 15:54:55.725714,Back from Plie,0.0,0.0,350.17834656702473,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:55.773718,Back from Plie,0.0,0.0,350.17834656702473,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:55.821722,Back from Plie,0.0,0.0,350.17834656702473,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:55.868725,Back from Plie,0.0,0.0,0.0,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:55.916729,Back from Plie,0.0,0.0,0.0,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:55.971735,Back from Plie,0.0,0.0,0.0,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:56.032738,Back from Plie,0.0,0.0,0.0,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:56.089743,Back from Plie,0.0,0.0,0.0,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:56.137746,Back from Plie,0.0,0.0,0.0,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:56.187750,Back from Plie,0.0,0.0,0.0,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:56.246754,Back from Plie,0.0,0.0,0.0,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:56.297758,Back from Plie,0.0,0.0,0.0,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:56.350762,Back from Plie,0.0,0.0,0.0,0.2717858864303565,0.0,hip right,knee right
+2023-02-22 15:54:56.414767,Back from Plie,0.0,0.0,0.0,0.2717858864303565,0.0,hip right,knee right
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+2023-02-22 16:00:52.167650,Plie,0.003002286085076383,0.0,0.0,0.26296581289395293,9.013721736643274e-06,hip right,knee right
+2023-02-22 16:00:52.231655,Plie,0.003002286085076383,0.0,0.0,0.2634525365734918,9.013721736643274e-06,hip right,knee right
+2023-02-22 16:00:52.293660,Plie,0.482586942626625,6.6,88.7028035083267,0.2657933925578282,0.23289015719371345,hip right,knee right
+2023-02-22 16:00:52.340662,Plie,0.482586942626625,6.6,88.7028035083267,0.267530302025686,0.23289015719371345,hip right,knee right
+2023-02-22 16:00:52.390666,Plie,0.482586942626625,6.6,88.7028035083267,0.27116812765625126,0.23289015719371345,hip right,knee right
+2023-02-22 16:00:52.453672,Plie,0.3845423510356506,2.93,82.53192162442387,0.2737610893944669,0.14787281974002553,hip right,knee right
+2023-02-22 16:00:52.514676,Plie,0.3845423510356506,2.93,82.53192162442387,0.27617796212439844,0.14787281974002553,hip right,knee right
+2023-02-22 16:00:52.563680,Plie,0.04552504755999834,-0.76,85.82761736366346,0.2771277504236858,0.002072529955340111,hip right,knee right
+2023-02-22 16:00:52.627685,Plie,0.04552504755999834,-0.76,85.82761736366346,0.27918445206388887,0.002072529955340111,hip right,knee right
+2023-02-22 16:00:52.691689,Plie,0.4364177575978152,3.99,29.216949324273987,0.28106354765390423,0.1904604591467054,hip right,knee right
+2023-02-22 16:00:52.752695,Plie,0.4364177575978152,3.99,29.216949324273987,0.2821688705487101,0.1904604591467054,hip right,knee right
+2023-02-22 16:00:52.798698,Plie,0.20125550137570308,2.67,185.63868817115136,0.28457684506897873,0.04050377683398563,hip right,knee right
+2023-02-22 16:00:52.849701,Plie,0.20125550137570308,2.67,185.63868817115136,0.28562429858735566,0.04050377683398563,hip right,knee right
+2023-02-22 16:00:52.892707,Plie,0.20125550137570308,2.67,185.63868817115136,0.28533091451892745,0.04050377683398563,hip right,knee right
+2023-02-22 16:00:52.941709,Plie,0.0,-9.11,291.0004380762401,0.28533091451892745,0.0,hip right,knee right
+2023-02-22 16:00:52.993713,Plie,0.0,-9.11,291.0004380762401,0.28533091451892745,0.0,hip right,knee right
+2023-02-22 16:00:53.052717,Plie,0.0,0.0,0.0,0.28533091451892745,0.0,hip right,knee right
+2023-02-22 16:00:53.103721,Plie,0.0,0.0,0.0,0.28487458781930053,0.0,hip right,knee right
+2023-02-22 16:00:53.159725,Plie,0.0,-6.58,246.40866411238827,0.28487458781930053,0.0,hip right,knee right
+2023-02-22 16:00:53.213730,Plie,0.0,-6.58,246.40866411238827,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.271734,Plie,0.0,-7.08,255.6735035863288,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.326738,Plie,0.0,-7.08,255.6735035863288,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.388743,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.452747,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.516754,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.575756,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.625761,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.685766,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.731769,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.777772,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.822775,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.877779,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.946785,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:53.996789,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.049794,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.097797,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.142800,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.192803,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.257809,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.319813,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.367817,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.416823,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.474825,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.527829,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.582833,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.638837,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.707843,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.755847,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.812850,Plie,0.0,0.0,0.0,0.28415247385947806,0.0,hip right,knee right
+2023-02-22 16:00:54.869856,Back from Plie,0.0,0.0,0.0,0.27716825924479815,0.0,hip right,knee right
+2023-02-22 16:00:54.915859,Back from Plie,0.0,-0.65,25.317259506865433,0.27716825924479815,0.0,hip right,knee right
+2023-02-22 16:00:54.962862,Back from Plie,0.0,-0.65,25.317259506865433,0.27620725696353554,0.0,hip right,knee right
+2023-02-22 16:00:55.025867,Back from Plie,0.0,-14.44,532.9239934738395,0.27620725696353554,0.0,hip right,knee right
+2023-02-22 16:00:55.072870,Back from Plie,0.0,-14.44,532.9239934738395,0.2751527439106104,0.0,hip right,knee right
+2023-02-22 16:00:55.120874,Back from Plie,0.0,-14.44,532.9239934738395,0.2751527439106104,0.0,hip right,knee right
+2023-02-22 16:00:55.167877,Back from Plie,1.057440046431468,22.5,1345.218755142102,0.27332159872316325,1.118179451796985,hip right,knee right
+2023-02-22 16:00:55.220882,Back from Plie,1.057440046431468,22.5,1345.218755142102,0.2715766081188619,1.118179451796985,hip right,knee right
+2023-02-22 16:00:55.282887,Back from Plie,0.0,-2.85,222.07871049110236,0.2715766081188619,0.0,hip right,knee right
+2023-02-22 16:00:55.332892,Back from Plie,0.0,-2.85,222.07871049110236,0.26971000396489203,0.0,hip right,knee right
+2023-02-22 16:00:55.412897,Back from Plie,0.049666911848770326,-20.97,693.8177650101916,0.26993456109031494,0.0024668021325935222,hip right,knee right
+2023-02-22 16:00:55.474901,Back from Plie,0.049666911848770326,-20.97,693.8177650101916,0.26948019688121766,0.0024668021325935222,hip right,knee right
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
+movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot
