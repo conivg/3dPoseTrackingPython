@@ -13,7 +13,7 @@ from scipy.signal import lfilter, savgol_filter, filtfilt, butter
 # Parameters
 width, height = 1280, 720
 # Webcam
-cap = cv2.VideoCapture('completeposes.mp4')  # 0 or 1 for webcam
+cap = cv2.VideoCapture('testvideo_p4.mp4')  # 0 or 1 for webcam
 cap.set(3, width)
 cap.set(4, height)
 
@@ -34,6 +34,8 @@ class Classificator:
         self.listVel = []
         self.listAcc = []
         self.listJerk = []
+        self.listWeight = []
+        self.listCI= []
         self.listDespCM.append(0)
         self.listPosXLower.append(0)
         self.listPosYLower.append(0)
@@ -80,8 +82,6 @@ class Classificator:
             self.foot_right = []
 
     def jointsAppending(self, lmlist,lmlistReal):
-        count = 1
-        if(count == 1):
             lmlist[11].extend(lmlistReal[11][1:4])
             self.shoulder_left.append(lmlist[11][1:])
             lmlist[12].extend(lmlistReal[12][1:4])
@@ -126,7 +126,6 @@ class Classificator:
             self.foot_left.append(lmlist[31][1:])
             lmlist[32].extend(lmlistReal[32][1:4])
             self.foot_right.append(lmlist[32][1:])
-            count = count+1
 
     def vel(self):
         #Elbow left
@@ -166,36 +165,138 @@ class Classificator:
         self.rightHeeldisp = math.sqrt((self.difHRX) ** 2 + (self.difHRY) ** 2 + (self.difHRZ) ** 2)
         aux = []
         # Calculate velocity in time (sec)
-        velUL = abs(self.leftElbowdisp / (2 / 30))
+        velUL = int(abs(self.leftElbowdisp / (2 / 30)))
         aux.append(velUL)
-        velUR = abs(self.rightElbowdisp / (2 / 30))
+        velUR = int(abs(self.rightElbowdisp / (2 / 30)))
         aux.append(velUR)
-        velKL = abs(self.leftKneedisp / (2 / 30))
+        velKL = int(abs(self.leftKneedisp / (2 / 30)))
         aux.append(velKL)
-        velKR = abs(self.rightKneedisp / (2 / 30))
+        velKR = int(abs(self.rightKneedisp / (2 / 30)))
         aux.append(velKR)
-        velHL = abs(self.leftHeeldisp / (2 / 30))
+        velHL = int(abs(self.leftHeeldisp / (2 / 30)))
         aux.append(velHL)
-        velKR = abs(self.rightHeeldisp / (2 / 30))
+        velKR = int(abs(self.rightHeeldisp / (2 / 30)))
         aux.append(velKR)
         self.listVel.append(aux)
 
     def acc(self):
-        self.difX = self.knee_right[-1][3] - (2*self.knee_right[-2][3]) + self.knee_right[-3][3]
-        self.difY = (self.knee_right[-1][4] - (2*self.knee_right[-2][4]) + self.knee_right[-3][4])
-        self.difZ = self.knee_right[-1][5] - (2*self.knee_right[-2][5]) + self.knee_right[-3][5]
-        self.RightKneeDisp = math.sqrt((self.difX) ** 2 + (self.difY) ** 2 + (self.difZ) ** 2)
-        acc = (self.RightKneeDisp / (1/30)**2)
-        self.listAcc.append(acc/10)
+        # Elbow Left
+        self.difULX = self.elbow_left[-1][3] - (2 * self.elbow_left[-2][3]) + self.elbow_left[-3][3]
+        self.difULY = (self.elbow_left[-1][4] - (2 * self.elbow_left[-2][4]) + self.elbow_left[-3][4])
+        self.difULZ = self.elbow_left[-1][5] - (2 * self.elbow_left[-2][5]) + self.elbow_left[-3][5]
+        # Elbow Right
+        self.difURX = self.elbow_right[-1][3] - (2 * self.elbow_right[-2][3]) + self.elbow_right[-3][3]
+        self.difURY = (self.elbow_right[-1][4] - (2 * self.elbow_right[-2][4]) + self.elbow_right[-3][4])
+        self.difURZ = self.elbow_right[-1][5] - (2 * self.elbow_right[-2][5]) + self.elbow_right[-3][5]
+        # Knee Left
+        self.difKLX = self.knee_left[-1][3] - (2 * self.knee_left[-2][3]) + self.knee_left[-3][3]
+        self.difKLY = (self.knee_left[-1][4] - (2 * self.knee_left[-2][4]) + self.knee_left[-3][4])
+        self.difKLZ = self.knee_left[-1][5] - (2 * self.knee_left[-2][5]) + self.knee_left[-3][5]
+        # Right Knee
+        self.difKRX = self.knee_right[-1][3] - (2*self.knee_right[-2][3]) + self.knee_right[-3][3]
+        self.difKRY = (self.knee_right[-1][4] - (2*self.knee_right[-2][4]) + self.knee_right[-3][4])
+        self.difKRZ = self.knee_right[-1][5] - (2*self.knee_right[-2][5]) + self.knee_right[-3][5]
+        # Knee Left
+        self.difHLX = self.heel_left[-1][3] - (2 * self.heel_left[-2][3]) + self.heel_left[-3][3]
+        self.difHLY = (self.heel_left[-1][4] - (2 * self.heel_left[-2][4]) + self.heel_left[-3][4])
+        self.difHLZ = self.heel_left[-1][5] - (2 * self.heel_left[-2][5]) + self.heel_left[-3][5]
+        # Right Knee
+        self.difHRX = self.heel_right[-1][3] - (2 * self.heel_right[-2][3]) + self.heel_right[-3][3]
+        self.difHRY = (self.heel_right[-1][4] - (2 * self.heel_right[-2][4]) + self.heel_right[-3][4])
+        self.difHRZ = self.heel_right[-1][5] - (2 * self.heel_right[-2][5]) + self.heel_right[-3][5]
+
+
+
+        self.leftElbowdisp = math.sqrt((self.difULX) ** 2 + (self.difULY) ** 2 + (self.difULZ) ** 2)
+        self.rightElbowdisp = math.sqrt((self.difURX) ** 2 + (self.difURY) ** 2 + (self.difURZ) ** 2)
+
+        self.leftKneedisp = math.sqrt((self.difKLX) ** 2 + (self.difKLY) ** 2 + (self.difKLZ) ** 2)
+        self.RightKneeDisp = math.sqrt((self.difKRX) ** 2 + (self.difKRY) ** 2 + (self.difKRZ) ** 2)
+
+        self.leftHeeldisp = math.sqrt((self.difHLX) ** 2 + (self.difHLY) ** 2 + (self.difHLZ) ** 2)
+        self.RightHeelDisp = math.sqrt((self.difHRX) ** 2 + (self.difHRY) ** 2 + (self.difHRZ) ** 2)
+
+        aux = []
+        accUL = (self.leftElbowdisp / (1 / 30) ** 2) / 10
+        aux.append(round(accUL,4))
+        accUR = (self.rightElbowdisp / (1 / 30) ** 2) /10
+        aux.append(round(accUR,4))
+        accKL = (self.leftKneedisp / (1 / 30) ** 2) /10
+        aux.append(round(accKL,4))
+        accKR = (self.RightKneeDisp / (1/30)**2) /10
+        aux.append(round(accKR,4))
+        accHL = (self.leftHeeldisp / (1 / 30) ** 2) /10
+        aux.append(round(accHL,4))
+        accHR = (self.RightHeelDisp / (1 / 30) ** 2) / 10
+        aux.append(round(accHR,4))
+        self.listAcc.append(aux)
+        #self.listAcc.append(acc/10)
+
+
+
     def flow(self):
-        self.difX = self.knee_right[-1][3] - (2 * self.knee_right[-2][3]) + (2*self.knee_right[-4][3]) - self.knee_right[-5][3]
-        self.difY = (self.knee_right[-1][4] - (2 * self.knee_right[-2][4]) + (2*self.knee_right[-4][4]) - self.knee_right[-5][4])
-        self.difZ = self.knee_right[-1][5] - (2 * self.knee_right[-2][5]) + (2*self.knee_right[-4][5]) - self.knee_right[-5][5]
-        self.RightKneeDisp = math.sqrt((self.difX) ** 2 + (self.difY) ** 2 + (self.difZ) ** 2)
-        flow = (self.RightKneeDisp / (2 * ((1 / 30) ** 3)))
-        self.listJerk.append(flow/1000)
-    #def weight(self):
-        #self.weightVar = self.listVel[-1] ** 2
+        # Elbow Left
+        self.difULX = self.elbow_left[-1][3] - (2 * self.elbow_left[-2][3]) + (2 * self.elbow_left[-4][3]) - self.elbow_left[-5][3]
+        self.difULY = (self.elbow_left[-1][4] - (2 * self.elbow_left[-2][4]) + (2 * self.elbow_left[-4][4]) - self.elbow_left[-5][4])
+        self.difULZ = self.elbow_left[-1][5] - (2 * self.elbow_left[-2][5]) + (2 * self.elbow_left[-4][5]) - self.elbow_left[-5][5]
+        # Elbow Right
+        self.difURX = self.elbow_right[-1][3] - (2 * self.elbow_right[-2][3]) + (2 * self.elbow_right[-4][3]) - self.elbow_right[-5][3]
+        self.difURY = (self.elbow_right[-1][4] - (2 * self.elbow_right[-2][4]) + (2 * self.elbow_right[-4][4]) - self.elbow_right[-5][4])
+        self.difURZ = self.elbow_right[-1][5] - (2 * self.elbow_right[-2][5]) + (2 * self.elbow_right[-4][5]) - self.elbow_right[-5][5]
+        # Left Knee
+        self.difKLX = self.knee_left[-1][3] - (2 * self.knee_left[-2][3]) + (2 * self.knee_left[-4][3]) - self.knee_left[-5][3]
+        self.difKLY = (self.knee_left[-1][4] - (2 * self.knee_left[-2][4]) + (2 * self.knee_left[-4][4]) - self.knee_left[-5][4])
+        self.difKLZ = self.knee_left[-1][5] - (2 * self.knee_left[-2][5]) + (2 * self.knee_left[-4][5]) - self.knee_left[-5][5]
+        # Right Knee
+        self.difKRX = self.knee_right[-1][3] - (2 * self.knee_right[-2][3]) + (2*self.knee_right[-4][3]) - self.knee_right[-5][3]
+        self.difKRY = (self.knee_right[-1][4] - (2 * self.knee_right[-2][4]) + (2*self.knee_right[-4][4]) - self.knee_right[-5][4])
+        self.difKRZ = self.knee_right[-1][5] - (2 * self.knee_right[-2][5]) + (2*self.knee_right[-4][5]) - self.knee_right[-5][5]
+        # Left Heel
+        self.difHLX = self.heel_left[-1][3] - (2 * self.heel_left[-2][3]) + (2 * self.heel_left[-4][3]) - self.heel_left[-5][3]
+        self.difHLY = (self.heel_left[-1][4] - (2 * self.heel_left[-2][4]) + (2 * self.heel_left[-4][4]) - self.heel_left[-5][4])
+        self.difHLZ = self.heel_left[-1][5] - (2 * self.heel_left[-2][5]) + (2 * self.heel_left[-4][5]) - self.heel_left[-5][5]
+        # Right Knee
+        self.difHRX = self.heel_right[-1][3] - (2 * self.heel_right[-2][3]) + (2 * self.heel_right[-4][3]) - self.heel_right[-5][3]
+        self.difHRY = (self.heel_right[-1][4] - (2 * self.heel_right[-2][4]) + (2 * self.heel_right[-4][4]) - self.heel_right[-5][4])
+        self.difHRZ = self.heel_right[-1][5] - (2 * self.heel_right[-2][5]) + (2 * self.heel_right[-4][5]) -  self.heel_right[-5][5]
+
+        self.leftElbowdisp = math.sqrt((self.difULX) ** 2 + (self.difULY) ** 2 + (self.difULZ) ** 2) / 100
+        self.rightElbowdisp = math.sqrt((self.difURX) ** 2 + (self.difURY) ** 2 + (self.difURZ) ** 2) / 100
+        self.leftKneedisp = math.sqrt((self.difKLX) ** 2 + (self.difKLY) ** 2 + (self.difKLZ) ** 2) / 100
+        self.RightKneeDisp = math.sqrt((self.difKRX) ** 2 + (self.difKRY) ** 2 + (self.difKRZ) ** 2) / 100
+        self.leftHeeldisp = math.sqrt((self.difHLX) ** 2 + (self.difHLY) ** 2 + (self.difHLZ) ** 2) / 100
+        self.rightHeeldisp = math.sqrt((self.difHRX) ** 2 + (self.difHRY) ** 2 + (self.difHRZ) ** 2) / 100
+        aux = []
+        flowUL = (self.leftElbowdisp / (2 * ((1 / 30) ** 3)))
+        aux.append(round(flowUL, 4))
+        flowUR = (self.rightElbowdisp / (2 * ((1 / 30) ** 3)))
+        aux.append(round(flowUR, 4))
+        flowKL = (self.leftKneedisp / (2 * ((1 / 30) ** 3)))
+        aux.append(round(flowKL, 4))
+        flowKR = (self.RightKneeDisp / (2 * ((1 / 30) ** 3)))
+        aux.append(round(flowKR, 4))
+        flowHL = (self.leftHeeldisp / (2 * ((1 / 30) ** 3)))
+        aux.append(round(flowHL, 4))
+        flowHR = (self.rightHeeldisp / (2 * ((1 / 30) ** 3)))
+        aux.append(round(flowHR, 4))
+        self.listJerk.append(aux)
+
+    def weight(self):
+        weightUL = self.listVel[-1][0] ** 2
+        weightUR = self.listVel[-1][1] ** 2
+        weightKL = self.listVel[-1][2] ** 2
+        weightKR = self.listVel[-1][3] ** 2
+        weightHL = self.listVel[-1][4] ** 2
+        weightHR = self.listVel[-1][5] ** 2
+        aux = []
+        aux.append(weightUL)
+        aux.append(weightUR)
+        aux.append(weightKL)
+        aux.append(weightKR)
+        aux.append(weightHL)
+        aux.append(weightHR)
+        self.listWeight.append(aux)
+
     def contractionIndex(self):
         leftShoulder = math.sqrt(self.shoulder_left[-1][3] ** 2 + self.shoulder_left[-1][4] ** 2 + self.shoulder_left[-1][5] ** 2)
         rightShoulder = (math.sqrt(self.shoulder_right[-1][3] ** 2 + self.shoulder_right[-1][4] ** 2 + self.shoulder_right[-1][5] ** 2))
@@ -206,8 +307,12 @@ class Classificator:
 
 def main():
     classificator = Classificator()
-    f = open("test.csv", "a")
-    headers = "movement, velocity, acc, jerk, ci, weight,evaluatedjoint, pivot\n"
+    f = open("test4.csv", "a")
+    headers = "timestamp, velUL, velUR, velKL, velKR, velHL, velHR," \
+              "accUL, accUR, accKL, accKR, accHL, accHR," \
+              "jerUL, jerUR, jerKL, jerKR, jerHL, jerHR," \
+              "weiUL, weiUR, weiKL, weiKR, weiHL, weiHR," \
+              "CI,\n"
     f.write(headers)
     while True:
         success, img = cap.read()
@@ -225,42 +330,28 @@ def main():
                 ## Calculate acceleration from difference in velocity
                 classificator.vel()
                 classificator.acc()
-                #classificator.weight()
+                classificator.weight()
                 classificator.flow()
                 classificator.contractionIndex()
-                #((classificator.listVel[-1] - classificator.listVel[-2]) / timer)
-                #classificator.listAcc.append(acc)
-                #
-                # # Calculate jerkiness from difference in acceleration
-                # jerk = ((classificator.listAcc[-1] - classificator.listAcc[-2]) / timer)
-                # classificator.listJerk.append(jerk)
-                # # Calculate contraction index:
-                # # ratio between 2 joints that surround another (middle) joint
-                #
-                #
-                # # Calculate the weight of the movement (Kinetic Energy)
-                # weight = vel ** 2
-                # # print("jerk:", round(jerk, 3), "ci:", round(ci, 3), "weight:", weight)
-                #
 
                 if time.time() - classificator.running_time >= 0.1:
                     classificator.velprintUL = classificator.listVel[-1][0]
-                    classificator.velprintUR = classificator.listVel[-1][1]
-                    classificator.velprintKL = classificator.listVel[-1][2]
-                    classificator.velprintKR = classificator.listVel[-1][3]
-                    classificator.velprintHL = classificator.listVel[-1][4]
-                    classificator.velprintHR = classificator.listVel[-1][5]
-                    classificator.accprint = classificator.listAcc[-1]
-                    printjerk = classificator.listJerk[-1]
+                    #classificator.velprintUR = classificator.listVel[-1][1]
+                    #classificator.velprintKL = classificator.listVel[-1][2]
+                    #classificator.velprintKR = classificator.listVel[-1][3]
+                    #classificator.velprintHL = classificator.listVel[-1][4]
+                    #classificator.velprintHR = classificator.listVel[-1][5]
+                    #classificator.accprint = classificator.listAcc[-1]
+                    #printjerk = classificator.listJerk[-1]
                     #weightprint = classificator.weightVar
                     classificator.running_time = time.time()
                 #
-                cvzone.putTextRect(img, "Speed ALeft:" f'{int(classificator.velprintUL)} cm/s', (800, 350))  # 100,400
-                cvzone.putTextRect(img, "Speed ARight:" f'{int(classificator.velprintUR)} cm/s', (800, 400))
-                cvzone.putTextRect(img, "Speed KLeft:" f'{int(classificator.velprintKL)} cm/s', (800, 450))
-                cvzone.putTextRect(img, "Speed KRight:" f'{int(classificator.velprintKR)} cm/s', (800, 500))
-                cvzone.putTextRect(img, "Speed HLeft:" f'{int(classificator.velprintHL)} cm/s', (800, 550))
-                cvzone.putTextRect(img, "Speed HRight:" f'{int(classificator.velprintHR)} cm/s', (800, 600))
+                cvzone.putTextRect(img, "Speed ALeft:" f'{classificator.velprintUL} m/s', (800, 350))  # 100,400
+                # cvzone.putTextRect(img, "Speed ARight:" f'{classificator.velprintUR} cm/s', (800, 400))
+                # cvzone.putTextRect(img, "Speed KLeft:" f'{classificator.velprintKL} cm/s', (800, 450))
+                # cvzone.putTextRect(img, "Speed KRight:" f'{classificator.velprintKR} cm/s', (800, 500))
+                # cvzone.putTextRect(img, "Speed HLeft:" f'{classificator.velprintHL} cm/s', (800, 550))
+                # cvzone.putTextRect(img, "Speed HRight:" f'{classificator.velprintHR} cm/s', (800, 600))
                 #cvzone.putTextRect(img, "acc:" f'{round(classificator.accprint, 1)} cm/s^2', (800, 400))
                 #cvzone.putTextRect(img, "jerk:" f'{round(abs(printjerk), 2)} cm/s^3', (800, 450))
                 #cvzone.putTextRect(img, "CI:" f'{round(classificator.ci, 2)}', (800, 500))
@@ -268,8 +359,21 @@ def main():
                 # cvzone.putTextRect(img, "joint:" f'{evaluatedJoint}', (800, 600))
                 # cvzone.putTextRect(img, "pivot:" f'{pivot}', (800, 650))
                 classificator.start_time = actualtime
-                # writetext = f'{datetime.datetime.now()}' + "," + lowerbodyMov + "," + f'{velprint}' + "," + f'{accprint}' + "," + f'{abs(printjerk)}' + "," + f'{ci}' + "," + f'{weightprint}' + "," + f'{evaluatedJoint}' + "," + f'{pivot}' + "\n"
-                # f.write(writetext)
+                #Writing
+                writetext = f'{datetime.datetime.now()}' + "," + f'{classificator.listVel[-1][0]}' + "," + \
+                            f'{classificator.listVel[-1][1]}' + "," + f'{classificator.listVel[-1][2]}' + "," + \
+                            f'{classificator.listVel[-1][3]}' + "," + f'{classificator.listVel[-1][4]}' + "," +\
+                            f'{classificator.listVel[-1][5]}' + "," + f'{classificator.listAcc[-1][0]}' + "," +\
+                            f'{classificator.listAcc[-1][1]}' + "," + f'{classificator.listAcc[-1][2]}' + "," + \
+                            f'{classificator.listAcc[-1][3]}' + "," + f'{classificator.listAcc[-1][4]}' + "," + \
+                            f'{classificator.listAcc[-1][5]}' + "," + f'{classificator.listJerk[-1][0]}' + "," + \
+                            f'{classificator.listJerk[-1][1]}' + "," + f'{classificator.listJerk[-1][2]}' + "," + \
+                            f'{classificator.listJerk[-1][3]}' + "," + f'{classificator.listJerk[-1][4]}' + "," + \
+                            f'{classificator.listJerk[-1][5]}' + "," + f'{classificator.listWeight[-1][0]}' + "," +\
+                            f'{classificator.listWeight[-1][1]}' + "," + f'{classificator.listWeight[-1][2]}' + "," + \
+                            f'{classificator.listWeight[-1][3]}' + "," + f'{classificator.listWeight[-1][4]}' + "," + \
+                            f'{classificator.listWeight[-1][5]}' + "," + f'{round(classificator.ci, 2)}' + "\n"
+                f.write(writetext)
 
             img = cv2.resize(img, (0, 0), None, 0.5, 0.5)
             cv2.imshow("Image", img)
