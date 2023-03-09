@@ -13,7 +13,7 @@ from scipy.signal import lfilter, savgol_filter, filtfilt, butter
 # Parameters
 width, height = 1280, 720
 # Webcam
-cap = cv2.VideoCapture('testvideo_p4.mp4')  # 0 or 1 for webcam
+cap = cv2.VideoCapture('vid5-p4.mp4')  # 0 or 1 for webcam
 cap.set(3, width)
 cap.set(4, height)
 
@@ -307,7 +307,7 @@ class Classificator:
 
 def main():
     classificator = Classificator()
-    f = open("test4.csv", "a")
+    f = open("testvid5-p4.csv", "a")
     headers = "timestamp, velUL, velUR, velKL, velKR, velHL, velHR," \
               "accUL, accUR, accKL, accKR, accHL, accHR," \
               "jerUL, jerUR, jerKL, jerKR, jerHL, jerHR," \
