@@ -13,7 +13,7 @@ from scipy.signal import lfilter, savgol_filter, filtfilt, butter
 # Parameters
 width, height = 1280, 720
 # Webcam
-cap = cv2.VideoCapture('vid5-p4.mp4')  # 0 or 1 for webcam
+cap = cv2.VideoCapture('videos/vid1.mp4')  # 0 or 1 for webcam
 cap.set(3, width)
 cap.set(4, height)
 
@@ -51,6 +51,9 @@ class Classificator:
         self.velprintHR = 0
         self.accprint = 0
         self.printjerk = 0
+        self.stateUp = 0
+        self.stateLow = 0
+        self.lowerbodyMov = ""
         self.running_time = time.time()
         self.start_time = time.time()
         self.velFilter = []
@@ -128,6 +131,8 @@ class Classificator:
             self.foot_right.append(lmlist[32][1:])
 
     def vel(self):
+        self.stateUp = 0
+        self.stateLow =0
         #Elbow left
         self.difULX = self.elbow_left[-1][3] - self.elbow_left[-2][3]
         self.difULY = (self.elbow_left[-1][4] - self.elbow_left[-2][4])
@@ -177,6 +182,12 @@ class Classificator:
         aux.append(velHL)
         velKR = int(abs(self.rightHeeldisp / (2 / 30)))
         aux.append(velKR)
+
+        if velUL >= 10 or velUR >= 10:
+            self.stateUp = 1
+        if velKL >= 10 or velKR >= 10:
+            self.stateLow = 1
+
         self.listVel.append(aux)
 
     def acc(self):
@@ -231,8 +242,6 @@ class Classificator:
         aux.append(round(accHR,4))
         self.listAcc.append(aux)
         #self.listAcc.append(acc/10)
-
-
 
     def flow(self):
         # Elbow Left
@@ -303,12 +312,96 @@ class Classificator:
         cont = leftShoulder / rightShoulder
         self.ci = cont
 
+    def movType(self):
+        if(self.stateLow == 1):
+            #profile values
+            if ((self.knee_left[-1][2] - self.knee_left[-2][2] < -0.1) &
+                    (self.knee_right[-1][2] - self.knee_right[-2][2] > 0.1) &
+                    (self.hip_left[-1][1] - self.hip_left[-2][1] > 0.1) &
+                    (self.hip_right[-1][1] - self.hip_right[-2][1] > 0.1)):
+                     self.lowerbodyMov = "Plie"
+            if ((self.knee_left[-1][2] - self.knee_left[-2][2] > 0.1) &
+                    (self.knee_right[-1][2] - self.knee_right[-2][2] < -0.1) &
+                    (self.hip_left[-1][1] - self.hip_left[-2][1] < -0.1) &
+                    (self.hip_right[-1][1] - self.hip_right[-2][1] < -0.1)):
+
+                     self.lowerbodyMov = "Back from Plie"
+        #Releve -> Negative displacement of hips.y; Negative displacement of heels.y; Not foot displacement in y and x
+            # if ((self.hip_left[-1][1] - self.hip_left[-2][1] < -0.3) &
+            #         (self.hip_right[-1][1] - self.hip_right[-2][1] < -0.3) &
+            #         (self.heel_left[-1][1] - self.heel_left[-2][1] < -0.3) &
+            #         (self.heel_right[-1][1] - self.heel_right[-2][1] < -0.3) &
+            #         (self.foot_right[-1][1] - self.foot_right[-2][1] < -0.3) &
+            #         (self.foot_left[-1][1] - self.foot_left[-2][1] < -0.3)):
+            #         self.lowerbodyMov = "Releve"
+            # if ((self.hip_left[-1][1] - self.hip_left[-2][1] > 0.3) &
+            #         (self.hip_right[-1][1] - self.hip_right[-2][1] > 0.3) &
+            #         (self.heel_left[-1][1] - self.heel_left[-2][1] > 0.3) &
+            #         (self.heel_right[-1][1] - self.heel_right[-2][1] > 0.3) &
+            #         (self.foot_right[-1][1] - self.foot_right[-2][1] > 0.3) &
+            #         (self.foot_left[-1][1] - self.foot_left[-2][1] > 0.3)):
+            #     self.lowerbodyMov = "Back from Releve"
+        # Etendre Right -> Not displacement in left hip.y; Negative displacement in right foot.x;  Not displacement in left foot.x;
+        #     if ((abs(self.foot_right[-1][0] - self.foot_right[-2][0]) > 0.2) &
+        #         (abs(self.heel_right[-1][0] - self.heel_right[-2][0]) > 0.2) &
+        #         (abs(self.hip_right[-1][1] - self.hip_right[-2][1]) < 0.1) &
+        #         (abs(self.hip_left[-1][1] - self.hip_left[-2][1]) < 0.1) &
+        #         (self.heel_right[-1][1] - self.heel_right[-2][1] < -0.3)):
+        #         lowerbodyMov = "Etendre right"
+        #     if ((self.foot_right[-1][0] - self.foot_right[-2][0] > 1) &
+        #         (self.heel_right[-1][0] - self.heel_right[-2][0] > 1) &
+        #         (abs(self.hip_right[-1][1] - self.hip_right[-2][1]) < 0.1) &
+        #         (abs(self.hip_left[-1][1] - self.hip_left[-2][1]) < 0.1) &
+        #         (self.heel_right[-1][1] - self.heel_right[-2][1] > 1.5)):
+        #         self.lowerbodyMov = "Back from Etendre right"
+        # Etendre Left -> Not displacement in right hip.y; Positive displacement in left foot.x or z;  Not displacement in right foot.x; Backward/Forward
+            if ((abs(self.foot_left[-1][0] - self.foot_left[-2][0]) > 0.3) &
+                 (abs(self.heel_left[-1][0] - self.heel_left[-2][0]) > 0.3) &
+                 (abs(self.foot_right[-1][0] - self.foot_right[-2][0]) < 0.1)):
+                self.lowerbodyMov = "Etendre left"
+            # if ((self.foot_left[-1][0] - self.foot_left[-2][0] < -0.3) &
+            #     (self.heel_left[-1][0] - self.heel_left[-2][0] < -0.3) &
+            #     (abs(self.hip_right[-1][1] - self.hip_right[-2][1]) < 0.1) &
+            #     (abs(self.hip_left[-1][1] - self.hip_left[-2][1]) < 0.1) &
+            #     (self.heel_left[-1][1] - self.heel_left[-2][1] > 0.3)):
+            #     self.lowerbodyMov = "Back from Etendre left"
+        #Tourner ->Not hips displacement in y; hips.x displacement any side; hips.z displacement any side
+            if ((abs(self.hip_left[-1][0] - self.hip_left[-2][0]) > 0.5) &
+                    (abs(self.hip_right[-1][0] - self.hip_right[-2][0]) > 0.5) &
+                    (abs(self.hip_left[-1][2] - self.hip_left[-2][2]) > 0.5) &
+                    (abs(self.hip_right[-1][2] - self.hip_right[-2][2]) > 0.5) &
+                    (abs(self.foot_right[-1][0] - self.foot_right[-2][0]) > 0.5) &
+                    (abs(self.foot_left[-1][0] - self.foot_left[-2][0]) > 0.5) &
+                    (abs(self.hip_left[-1][1] - self.hip_left[-2][1]) < 0.05)
+            ):
+                self.lowerbodyMov = "Tourner"
+        #Sauter -> Jumping; Negative in foot.y; Negative displacement in hips.y; Not displacement in hips.x any side; Negative displacement in heel.y
+        #     if ((self.foot_left[-1][1] - self.foot_left[-2][1] < -1) &
+        #         (self.foot_right[-1][1] - self.foot_right[-2][1] < -1) &
+        #         (self.hip_left[-1][1] - self.hip_left[-2][1] < -0.8) &
+        #         (self.hip_right[-1][1] - self.hip_right[-2][1] < -0.8) &
+        #         (self.heel_left[-1][1] - self.heel_left[-2][1] < -1) &
+        #         (self.heel_right[-1][1] - self.heel_right[-2][1] < -1) &
+        #         (abs(self.hip_right[-1][0] - self.hip_right[-2][0]) < 0.05)):
+        #         self.lowerbodyMov = "Jumping"
+        # # Elancer -> Jumping with direction; Positive Negative in foot.y; Negative displacement in hips.y; Displacement in hips.x any side
+        #     if ((self.foot_left[-1][1] - self.foot_left[-2][1] < -0.8) &
+        #         (self.foot_right[-1][1] - self.foot_right[-2][1] < -0.8) &
+        #         (self.hip_left[-1][1] - self.hip_left[-2][1] < -0.8) &
+        #         (self.hip_right[-1][1] - self.hip_right[-2][1] < -0.8) &
+        #         (self.heel_left[-1][1] - self.heel_left[-2][1] < -0.5) &
+        #         (self.heel_right[-1][1] - self.heel_right[-2][1] < -0.5) &
+        #         (abs(self.hip_right[-1][0] - self.hip_right[-2][0]) > 0.5)):
+        #         self.lowerbodyMov = "Elancer"
+        else:
+            self.lowerbodyMov = ""
+
 
 
 def main():
     classificator = Classificator()
-    f = open("testvid5-p4.csv", "a")
-    headers = "timestamp, velUL, velUR, velKL, velKR, velHL, velHR," \
+    f = open("files/p4-states.csv", "a")
+    headers = "timestamp, stateUp, stateLow, lowmovtype, velUL, velUR, velKL, velKR, velHL, velHR," \
               "accUL, accUR, accKL, accKR, accHL, accHR," \
               "jerUL, jerUR, jerKL, jerKR, jerHL, jerHR," \
               "weiUL, weiUR, weiKL, weiKR, weiHL, weiHR," \
@@ -329,10 +422,12 @@ def main():
             if (classificator.knee_right.__len__() > 5):
                 ## Calculate acceleration from difference in velocity
                 classificator.vel()
+                classificator.movType()
                 classificator.acc()
                 classificator.weight()
                 classificator.flow()
                 classificator.contractionIndex()
+
 
                 if time.time() - classificator.running_time >= 0.1:
                     classificator.velprintUL = classificator.listVel[-1][0]
@@ -346,7 +441,10 @@ def main():
                     #weightprint = classificator.weightVar
                     classificator.running_time = time.time()
                 #
-                cvzone.putTextRect(img, "Speed ALeft:" f'{classificator.velprintUL} m/s', (800, 350))  # 100,400
+                cvzone.putTextRect(img, "Speed ALeft:" f'{classificator.velprintUL} m/s', (800, 350))
+                cvzone.putTextRect(img, "Move" f'{classificator.stateLow}', (800, 400))
+                cvzone.putTextRect(img, "Move" f'{classificator.lowerbodyMov} m/s', (800, 450))
+                # 100,400
                 # cvzone.putTextRect(img, "Speed ARight:" f'{classificator.velprintUR} cm/s', (800, 400))
                 # cvzone.putTextRect(img, "Speed KLeft:" f'{classificator.velprintKL} cm/s', (800, 450))
                 # cvzone.putTextRect(img, "Speed KRight:" f'{classificator.velprintKR} cm/s', (800, 500))
@@ -360,8 +458,9 @@ def main():
                 # cvzone.putTextRect(img, "pivot:" f'{pivot}', (800, 650))
                 classificator.start_time = actualtime
                 #Writing
-                writetext = f'{datetime.datetime.now()}' + "," + f'{classificator.listVel[-1][0]}' + "," + \
-                            f'{classificator.listVel[-1][1]}' + "," + f'{classificator.listVel[-1][2]}' + "," + \
+                writetext = f'{datetime.datetime.now()}' + "," + f'{classificator.stateUp}'+"," + f'{classificator.stateLow}'+","\
+                            + f'{classificator.lowerbodyMov}'+","+f'{classificator.listVel[-1][0]}' + "," \
+                            + f'{classificator.listVel[-1][1]}' + "," + f'{classificator.listVel[-1][2]}' + "," + \
                             f'{classificator.listVel[-1][3]}' + "," + f'{classificator.listVel[-1][4]}' + "," +\
                             f'{classificator.listVel[-1][5]}' + "," + f'{classificator.listAcc[-1][0]}' + "," +\
                             f'{classificator.listAcc[-1][1]}' + "," + f'{classificator.listAcc[-1][2]}' + "," + \
